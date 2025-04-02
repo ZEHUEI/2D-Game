@@ -15,7 +15,10 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    int hasKey =0;
+    public int hasKey =0;
+    public boolean buffActive = false;
+    public int buffTime =0;
+    public static final int buffduration= 180;
 
     public Player(GamePanel gp, MOVING move){
         this.gp = gp;
@@ -25,11 +28,11 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidarea = new Rectangle();
-        solidarea.x =9;
+        solidarea.x =6;
         solidarea.y=21;
         solidAreaDefaultX = solidarea.x;
         solidAreaDefaultY = solidarea.y;
-        solidarea.width =30;
+        solidarea.width =36;
         solidarea.height =27;
 
         setDefaultValues();
@@ -45,7 +48,6 @@ public class Player extends Entity{
 
     public void getPlayerImage(){
         try{
-
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/up1.png"));
             up2 = ImageIO.read(getClass().getResourceAsStream("/player/up2.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/player/walk1.png"));
@@ -115,6 +117,16 @@ public class Player extends Entity{
             }
         }
 
+        if(buffActive){
+            buffTime++;
+            if(buffTime >=buffduration)
+            {
+                speed-=2;
+                buffActive = false;
+                buffTime =0;
+            }
+        }
+
     }
     public void Interact(int i){
         if(i != 999){
@@ -124,12 +136,33 @@ public class Player extends Entity{
                 case"Key":
                     hasKey++;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("You got a key!");
                     break;
                 case"Door":
                     if(hasKey > 0){
                         gp.obj[i] = null;
                         hasKey--;
+                        gp.ui.showMessage("Door Opened!");
                     }
+                    else {
+                        gp.ui.showMessage("Key Needed!");
+                    }
+                    break;
+                case"Swift":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    if(!buffActive){
+                        speed+=2;
+                        buffActive = true;
+                        buffTime =0;
+                    }
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("SPEED UP!");
+                    break;
+                case"Chest":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    gp.ui.gamefinish = true;
+                    gp.stopMusic();
+                    //gp.playSE();
                     break;
             }
         }
