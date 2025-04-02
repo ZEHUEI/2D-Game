@@ -25,11 +25,11 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidarea = new Rectangle();
-        solidarea.x =9;
+        solidarea.x =6;
         solidarea.y=21;
         solidAreaDefaultX = solidarea.x;
         solidAreaDefaultY = solidarea.y;
-        solidarea.width =30;
+        solidarea.width =36;
         solidarea.height =27;
 
         setDefaultValues();
@@ -130,6 +130,11 @@ public class Player extends Entity{
                         gp.obj[i] = null;
                         hasKey--;
                     }
+                    break;
+                case"Swift":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    speed+=2;
+                    gp.obj[i] = null;
                     break;
             }
         }
