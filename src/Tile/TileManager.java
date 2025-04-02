@@ -36,6 +36,7 @@ public class TileManager {
 
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/stone.png"));
+            tile[2].collision = true;
 
             tile[3] = new Tile();
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/flowing river.png"));
@@ -59,7 +60,7 @@ public class TileManager {
     }
     public void loadMap() {
         try {
-            InputStream is = getClass().getResourceAsStream("/Map/worldmap.txt");
+            InputStream is = getClass().getResourceAsStream("/Map/testmap.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col =0;
