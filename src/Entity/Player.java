@@ -164,6 +164,11 @@ public class Player extends Entity{
                     gp.stopMusic();
                     //gp.playSE();
                     break;
+                case"Swift":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    speed+=2;
+                    gp.obj[i] = null;
+                    break;
             }
         }
     }
