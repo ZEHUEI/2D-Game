@@ -161,7 +161,7 @@ public class Player extends Entity{
                 case"Chest":
                     //gp.playSE(); make a special effect sound and add in sound.java
                     gp.ui.gamefinish = true;
-                    gp.stopMusic(0);
+                    gp.stopMusic();
                     //gp.playSE();
                     break;
 
