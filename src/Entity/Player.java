@@ -161,14 +161,10 @@ public class Player extends Entity{
                 case"Chest":
                     //gp.playSE(); make a special effect sound and add in sound.java
                     gp.ui.gamefinish = true;
-                    gp.stopMusic();
+                    gp.stopMusic(0);
                     //gp.playSE();
                     break;
-                case"Swift":
-                    //gp.playSE(); make a special effect sound and add in sound.java
-                    speed+=2;
-                    gp.obj[i] = null;
-                    break;
+
             }
         }
     }
