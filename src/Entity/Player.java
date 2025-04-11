@@ -2,10 +2,12 @@ package Entity;
 
 import main.GamePanel;
 import main.MOVING;
+import main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Player extends Entity{
@@ -15,10 +17,10 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    public int hasKey =0;
     public boolean buffActive = false;
     public int buffTime =0;
     public static final int buffduration= 180;
+    public int standCounter = 0;
 
     public Player(GamePanel gp, MOVING move){
         this.gp = gp;
@@ -28,11 +30,11 @@ public class Player extends Entity{
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
         solidarea = new Rectangle();
-        solidarea.x =6;
+        solidarea.x =9;
         solidarea.y=21;
         solidAreaDefaultX = solidarea.x;
         solidAreaDefaultY = solidarea.y;
-        solidarea.width =36;
+        solidarea.width =30;
         solidarea.height =27;
 
         setDefaultValues();
@@ -47,21 +49,30 @@ public class Player extends Entity{
     }
 
     public void getPlayerImage(){
-        try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/up1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/up2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/walk1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/walk2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/left1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/left2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/right1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/right2.png"));
 
-        }catch (IOException e){
+        up1 = setup("up1");
+        up2 = setup("up2");
+        down1 = setup("walk1");
+        down2 = setup("walk2");
+        left1 =setup("left1");
+        left2 =setup("left2");
+        right1 =setup("right1");
+        right2 =setup("right2");
+
+    }
+    public BufferedImage setup(String imageName)
+    {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+
+        try{
+            image = ImageIO.read(getClass().getResourceAsStream("/Player/" + imageName + ".png"));
+            image= uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
-
     public void update(){
         if(move.up == true|| move.down == true|| move.left == true || move.right == true){
             if(move.up == true)
@@ -116,6 +127,13 @@ public class Player extends Entity{
                 spriteCounter =0;
             }
         }
+        else {
+            standCounter++;
+            if(standCounter == 20){
+                spriteNum = 1;
+                standCounter = 0;
+            }
+        }
 
         if(buffActive){
             buffTime++;
@@ -130,44 +148,9 @@ public class Player extends Entity{
     }
     public void Interact(int i){
         if(i != 999){
-            String objName = gp.obj[i].name;
-
-            switch(objName){
-                case"Key":
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("You got a key!");
-                    break;
-                case"Door":
-                    if(hasKey > 0){
-                        gp.obj[i] = null;
-                        hasKey--;
-                        gp.ui.showMessage("Door Opened!");
-                    }
-                    else {
-                        gp.ui.showMessage("Key Needed!");
-                    }
-                    break;
-                case"Swift":
-                    //gp.playSE(); make a special effect sound and add in sound.java
-                    if(!buffActive){
-                        speed+=2;
-                        buffActive = true;
-                        buffTime =0;
-                    }
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("SPEED UP!");
-                    break;
-                case"Chest":
-                    //gp.playSE(); make a special effect sound and add in sound.java
-                    gp.ui.gamefinish = true;
-                    gp.stopMusic();
-                    //gp.playSE();
-                    break;
 
             }
         }
-    }
     public void draw(Graphics2D g2){
 
         BufferedImage image = null;
@@ -208,7 +191,9 @@ public class Player extends Entity{
 
         }
 
-        g2.drawImage(image,screenX,screenY,gp.tileSize,gp.tileSize,null);
-
+        g2.drawImage(image,screenX,screenY,null);
+//        player size debugg
+//        g2.setColor(Color.RED);
+//        g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );
     }
 }

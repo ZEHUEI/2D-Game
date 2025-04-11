@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS=120;
 
     TileManager tileM = new TileManager(this);
-    MOVING move = new MOVING();
+    MOVING move = new MOVING(this);
     Thread gameThread;
     Sound music = new Sound();
     Sound se = new Sound();
@@ -39,6 +39,11 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public Player player = new Player(this,move);
     public SuperObject obj[] = new SuperObject[10];
+
+    //Game state
+    public int gameState;
+    public final int playState =1;
+    public final  int pauseState =2;
 
 
     public GamePanel() {
@@ -54,6 +59,8 @@ public class GamePanel extends JPanel implements Runnable {
         asset.setObject();
 
         playMusic(0);
+
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -87,7 +94,14 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update(){
-        player.update();
+        if(gameState == playState)
+        {
+            player.update();
+        }
+        if(gameState==pauseState)
+        {
+
+        }
 
     }
     public void paintComponent(Graphics g){
@@ -95,6 +109,14 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+
+        //Debug
+//        long drawStart = 0;
+//        if(move.checkdrawTime == true)
+//        {
+//            drawStart = System.nanoTime();
+//        }
+
 
         tileM.draw(g2);
 
@@ -104,6 +126,16 @@ public class GamePanel extends JPanel implements Runnable {
 
         player.draw(g2);
         ui.draw(g2);
+
+//        if(move.checkdrawTime ==true)
+//        {
+//            long drawEnd = System.nanoTime();
+//            long passed = drawEnd -drawStart;
+//            g2.setColor(Color.WHITE);
+//            g2.drawString("Draw Time: "+passed,10,400);
+//            System.out.println("Draw Time: "+passed);
+//        }
+
         g2.dispose();
     }
     public void playMusic(int i){
