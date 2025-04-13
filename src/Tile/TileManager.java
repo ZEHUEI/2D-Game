@@ -20,7 +20,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp){
         this.gp =gp;
-        tile = new Tile[20];
+        tile = new Tile[50];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileImage();
         loadMap();
@@ -28,18 +28,60 @@ public class TileManager {
 
     public void getTileImage(){
 
-            setup(0,"grass",false);
-            setup(1,"dirt",false);
-            setup(2,"stone",true);
-            setup(3,"flowing river",true);
-            setup(4,"riverbank",true);
-            setup(5,"StillWater",true);
-            setup(6,"tree",true);
-            setup(7,"botriverbank",true);
-            setup(8,"leftbtriverbank",true);
-            setup(9,"leftriverbank",true);
-            setup(10,"rightbtriverbank",true);
-            setup(11,"rightriverbank",true);
+        //grass n walkway
+        setup(0,"green",false);
+        setup(1,"grass0",false);
+        setup(2,"grass1",false);
+        setup(3,"grass2",false);
+        setup(4,"walkway0",false);
+        setup(5,"walkway1",false);
+        setup(6,"walkway2",false);
+        setup(7,"walkway3",false);
+        setup(8,"walkway4",false);
+        setup(9,"walkway5",false);
+        setup(10,"walkway6",false);
+        setup(11,"walkway7",false);
+
+        //ocean n corner
+        setup(12,"StillWater",true);
+        setup(13,"ocean0",true);
+        setup(14,"ocean1",true);
+        setup(15,"ocean2",true);
+        setup(16,"ocean3",true);
+        setup(17,"ocean4",true);
+        setup(18,"ocean5",true);
+        setup(19,"ocean6",true);
+        setup(20,"ocean7",true);
+        setup(21,"oceancorner0",true);
+        setup(22,"oceancorner1",true);
+        setup(23,"oceancorner2",true);
+        setup(24,"oceancorner3",true);
+
+        //sand
+        setup(25,"sand",false);
+        setup(26,"sanddot",false);
+        setup(27,"sandstone",false);
+        setup(28,"sandcorner0",false);
+        setup(29,"sandcorner1",false);
+        setup(30,"sandcorner2",false);
+        setup(31,"sandcorner3",false);
+
+
+        //river
+        setup(32,"botriverbank",true);
+        setup(33,"leftbtriverbank",true);
+        setup(34,"leftriverbank",true);
+        setup(35,"rightbtriverbank",true);
+        setup(36,"rightriverbank",true);
+        setup(37,"riverbank",true);
+        setup(38,"sideleft",true);
+        setup(39,"sideright",true);
+        setup(40,"flowing river",true);
+
+        //tree n bushes # bushes will be an item placed on top for char to hide
+        setup(41,"tree",true);
+//        setup(34,"rightriverbank",false);
+
 
     }
     public void setup(int index, String imageName, boolean collision){

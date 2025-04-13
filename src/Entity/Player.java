@@ -193,7 +193,7 @@ public class Player extends Entity{
 
         g2.drawImage(image,screenX,screenY,null);
 //        player size debugg
-//        g2.setColor(Color.RED);
-//        g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );
+        g2.setColor(Color.RED);
+        g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );
     }
 }

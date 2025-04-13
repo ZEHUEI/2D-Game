@@ -14,14 +14,14 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public int tileSize = originalTilesSize * scale;//48x48px
-    public int maxScreenColumn = 32;
-    public int maxScreenRow =18;
-    //map has to be 31px in column X 17px in row game in 1488x1080
+    public int maxScreenColumn = 16;
+    public int maxScreenRow =15;
+    //map has to be 31px in column X 17px in row game in 1488x1080 change if want as got some problem #fixed 13/4/2025
     public int screenWidth = tileSize * maxScreenColumn;
     public int screenHeight = tileSize * maxScreenRow;
 
-    //world map parameters
-    public final int maxWorldCol = 96;
+    //world map parameters change this if want too!!!
+    public final int maxWorldCol = 95;
     public final int maxWorldRow = 50;
     public final int maxWorldWidth = tileSize *maxWorldCol;
     public final int maxWorldHeight = tileSize *maxWorldRow;
@@ -97,10 +97,11 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == playState)
         {
             player.update();
+            music.play();
         }
         if(gameState==pauseState)
         {
-
+            music.stop();
         }
 
     }
