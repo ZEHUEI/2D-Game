@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class MOVING implements KeyListener {
     GamePanel gp;
-    public boolean up, down, left, right;
+    public boolean up, down, left, right,enter;
     boolean checkdrawTime = false;
 
     public MOVING(GamePanel gp)
@@ -20,47 +20,62 @@ public class MOVING implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
-        if(code == KeyEvent.VK_W)
-        {
-            up = true;
-        }
-        if(code == KeyEvent.VK_A)
-        {
-            left = true;
-        }
-        if(code == KeyEvent.VK_S)
-        {
-            down = true;
-        }
-        if(code == KeyEvent.VK_D)
-        {
-            right = true;
-        }
-
-        if(code == KeyEvent.VK_ESCAPE)
-        {
-            if(gp.gameState == gp.playState)
-            {
+        //play state
+        if(gp.gameState == gp.playState) {
+            if (code == KeyEvent.VK_W) {
+                up = true;
+            }
+            if (code == KeyEvent.VK_A) {
+                left = true;
+            }
+            if (code == KeyEvent.VK_S) {
+                down = true;
+            }
+            if (code == KeyEvent.VK_D) {
+                right = true;
+            }
+            if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.pauseState;
             }
-            else if(gp.gameState == gp.pauseState)
+            if (code == KeyEvent.VK_ENTER) {
+                enter = true;
+            }
+
+            if (code == KeyEvent.VK_T) {
+                if (checkdrawTime == false) {
+                    checkdrawTime = true;
+                } else if (checkdrawTime == true) {
+                    checkdrawTime = false;
+                }
+            }
+        }
+        //pause state
+        if(gp.gameState == gp.pauseState) {
+            if(code == KeyEvent.VK_ESCAPE)
             {
                 gp.gameState = gp.playState;
             }
         }
-
-        if(code == KeyEvent.VK_T)
+        //dialogue state
+        if(gp.gameState == gp.dialogueState)
         {
-           if(checkdrawTime == false)
-           {
-               checkdrawTime = true;
-           }
-           else if(checkdrawTime ==true)
-           {
-               checkdrawTime = false;
-           }
+            if (code == KeyEvent.VK_W) {
+                gp.gameState = gp.playState;
+            }
+            if (code == KeyEvent.VK_A) {
+                gp.gameState = gp.playState;
+            }
+            if (code == KeyEvent.VK_S) {
+                gp.gameState = gp.playState;
+            }
+            if (code == KeyEvent.VK_D) {
+                gp.gameState = gp.playState;
+            }
+            if(code == KeyEvent.VK_ENTER)
+            {
+                gp.gameState = gp.playState;
+            }
         }
-
     }
 
     @Override

@@ -11,8 +11,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 public class Player extends Entity{
-
-    GamePanel gp;
     MOVING move;
 
     public final int screenX;
@@ -23,7 +21,8 @@ public class Player extends Entity{
     public int standCounter = 0;
 
     public Player(GamePanel gp, MOVING move){
-        this.gp = gp;
+        super(gp);
+
         this.move= move;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -42,36 +41,23 @@ public class Player extends Entity{
     }
     public void setDefaultValues(){
 
-        worldX = gp.tileSize * 22;
-        worldY = gp.tileSize * 15;
+        worldX = gp.tileSize * 85;
+        worldY = gp.tileSize * 7;
         speed =4;
         direction = "down";
     }
 
     public void getPlayerImage(){
 
-        up1 = setup("up1");
-        up2 = setup("up2");
-        down1 = setup("walk1");
-        down2 = setup("walk2");
-        left1 =setup("left1");
-        left2 =setup("left2");
-        right1 =setup("right1");
-        right2 =setup("right2");
+        up1 = setup("/Player/up1");
+        up2 = setup("/Player/up2");
+        down1 = setup("/Player/walk1");
+        down2 = setup("/Player/walk2");
+        left1 =setup("/Player/left1");
+        left2 =setup("/Player/left2");
+        right1 =setup("/Player/right1");
+        right2 =setup("/Player/right2");
 
-    }
-    public BufferedImage setup(String imageName)
-    {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try{
-            image = ImageIO.read(getClass().getResourceAsStream("/Player/" + imageName + ".png"));
-            image= uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
     }
     public void update(){
         if(move.up == true|| move.down == true|| move.left == true || move.right == true){
@@ -99,6 +85,10 @@ public class Player extends Entity{
             //check obj collision
             int objindex = gp.cChecker.checkObj(this,true);
             Interact(objindex);
+
+            //cjeck npc collision
+            int npcindex = gp.cChecker.checkEntity(this,gp.npc);
+            interactNPC(npcindex);
 
             //if collision is true player dont move
             if(collisionON ==false)
@@ -151,6 +141,18 @@ public class Player extends Entity{
 
             }
         }
+
+    public void interactNPC(int i){
+        if(i != 999){
+            if(gp.move.enter == true)
+            {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
+        }
+        gp.move.enter = false;
+    }
+
     public void draw(Graphics2D g2){
 
         BufferedImage image = null;

@@ -57,29 +57,33 @@ public class TileManager {
         setup(23,"oceancorner2",true);
         setup(24,"oceancorner3",true);
 
-        //sand
-        setup(25,"sand",false);
-        setup(26,"sanddot",false);
-        setup(27,"sandstone",false);
-        setup(28,"sandcorner0",false);
-        setup(29,"sandcorner1",false);
-        setup(30,"sandcorner2",false);
-        setup(31,"sandcorner3",false);
+//        //sand
+//        setup(25,"sand",false);
+//        setup(26,"sanddot",false);
+//        setup(27,"sandstone",false);
+//        setup(28,"sandcorner0",false);
+//        setup(29,"sandcorner1",false);
+//        setup(30,"sandcorner2",false);
+//        setup(31,"sandcorner3",false);
 
 
         //river
-        setup(32,"botriverbank",true);
-        setup(33,"leftbtriverbank",true);
-        setup(34,"leftriverbank",true);
-        setup(35,"rightbtriverbank",true);
-        setup(36,"rightriverbank",true);
-        setup(37,"riverbank",true);
-        setup(38,"sideleft",true);
-        setup(39,"sideright",true);
-        setup(40,"flowing river",true);
+        setup(25,"botriverbank",true);
+        setup(26,"leftbtriverbank",true);
+        setup(27,"leftriverbank",true);
+        setup(28,"rightbtriverbank",true);
+        setup(29,"rightriverbank",true);
+        setup(30,"riverbank",true);
+        setup(31,"sideleft",true);
+        setup(32,"sideright",true);
+        setup(33,"flowing river",true);
 
         //tree n bushes # bushes will be an item placed on top for char to hide
-        setup(41,"tree",true);
+        setup(34,"tree",true);
+        setup(35,"topleft",false);
+        setup(36,"topright",false);
+        setup(37,"botleft",false);
+        setup(38,"botright",false);
 //        setup(34,"rightriverbank",false);
 
 

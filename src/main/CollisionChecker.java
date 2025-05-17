@@ -149,4 +149,107 @@ public class CollisionChecker {
 
         return index;
     }
+    //NPC or monster
+    public int checkEntity(Entity entity,Entity[] target){
+
+        int index = 999;
+
+        for(int i =0; i < target.length;i++)
+        {
+            if(target[i] != null)
+            {
+                //get entities solid area position
+                entity.solidarea.x = entity.worldX + entity.solidarea.x;
+                entity.solidarea.y = entity.worldY + entity.solidarea.y;
+
+                //get NPC or monster solid area position
+                target[i].solidarea.x = target[i].worldX + target[i].solidarea.x;
+                target[i].solidarea.y = target[i].worldY + target[i].solidarea.y;
+
+                switch(entity.direction){
+                    case"up":
+                        entity.solidarea.y -= entity.speed;
+                        if(entity.solidarea.intersects(target[i].solidarea))
+                        {
+                                entity.collisionON = true;
+                                index =i;
+                        }
+                        break;
+                    case"down":
+                        entity.solidarea.y += entity.speed;
+                        if(entity.solidarea.intersects(target[i].solidarea))
+                        {
+                                entity.collisionON = true;
+                                index =i;
+                        }
+                        break;
+                    case"left":
+                        entity.solidarea.x -= entity.speed;
+                        if(entity.solidarea.intersects(target[i].solidarea))
+                        {
+                                entity.collisionON = true;
+                                index =i;
+                        }
+                        break;
+                    case"right":
+                        entity.solidarea.x += entity.speed;
+                        if(entity.solidarea.intersects(target[i].solidarea))
+                        {
+                                entity.collisionON = true;
+                                index =i;
+                        }
+                        break;
+                }
+                entity.solidarea.x = entity.solidAreaDefaultX;
+                entity.solidarea.y = entity.solidAreaDefaultY;
+                target[i].solidarea.x = target[i].solidAreaDefaultX;
+                target[i].solidarea.y = target[i].solidAreaDefaultY;
+
+            }
+        }
+
+        return index;
+    }
+
+    public void checkPlayer(Entity entity) {
+//get entities solid area position
+        entity.solidarea.x = entity.worldX + entity.solidarea.x;
+        entity.solidarea.y = entity.worldY + entity.solidarea.y;
+
+        //get NPC or monster solid area position
+        gp.player.solidarea.x = gp.player.worldX + gp.player.solidarea.x;
+        gp.player.solidarea.y = gp.player.worldY + gp.player.solidarea.y;
+
+        switch (entity.direction) {
+            case "up":
+                entity.solidarea.y -= entity.speed;
+                if (entity.solidarea.intersects(gp.player.solidarea)) {
+                    entity.collisionON = true;
+                }
+                break;
+            case "down":
+                entity.solidarea.y += entity.speed;
+                if (entity.solidarea.intersects(gp.player.solidarea)) {
+                    entity.collisionON = true;
+                }
+                break;
+            case "left":
+                entity.solidarea.x -= entity.speed;
+                if (entity.solidarea.intersects(gp.player.solidarea)) {
+                    entity.collisionON = true;
+                }
+                break;
+            case "right":
+                entity.solidarea.x += entity.speed;
+                if (entity.solidarea.intersects(gp.player.solidarea)) {
+                    entity.collisionON = true;
+                }
+                break;
+        }
+        entity.solidarea.x = entity.solidAreaDefaultX;
+        entity.solidarea.y = entity.solidAreaDefaultY;
+        gp.player.solidarea.x = gp.player.solidAreaDefaultX;
+        gp.player.solidarea.y = gp.player.solidAreaDefaultY;
+    }
+
 }

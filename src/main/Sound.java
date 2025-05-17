@@ -33,8 +33,9 @@ public class Sound {
 
     }
     public void play(){
-        clip.start();
         clip.stop();
+//        clip.start();
+        //stop cause damn annoying
     }
     public void loop(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);

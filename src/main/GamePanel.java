@@ -1,5 +1,6 @@
 package main;
 
+import Entity.Entity;
 import Entity.Player;
 import Objects.SuperObject;
 import Tile.TileManager;
@@ -30,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS=120;
 
     TileManager tileM = new TileManager(this);
-    MOVING move = new MOVING(this);
+    public MOVING move = new MOVING(this);
     Thread gameThread;
     Sound music = new Sound();
     Sound se = new Sound();
@@ -39,11 +40,13 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public Player player = new Player(this,move);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
     //Game state
     public int gameState;
     public final int playState =1;
     public final  int pauseState =2;
+    public final int dialogueState = 3;
 
 
     public GamePanel() {
@@ -57,7 +60,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame(){
         asset.setObject();
-
+        asset.setNPC();
         playMusic(0);
 
         gameState = playState;
@@ -97,6 +100,9 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == playState)
         {
             player.update();
+            for(int i = 0; i< npc.length;i++){
+                if(npc[i] != null){npc[i].update();}
+            }
             music.play();
         }
         if(gameState==pauseState)
@@ -125,6 +131,10 @@ public class GamePanel extends JPanel implements Runnable {
             if(obj[i] != null){obj[i].draw(g2,this);}
         }
 
+        //draw npc
+        for(int i =0; i <obj.length; i++){
+            if(npc[i] != null){npc[i].draw(g2);}
+        }
         player.draw(g2);
         ui.draw(g2);
 
