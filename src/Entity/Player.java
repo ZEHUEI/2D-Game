@@ -2,19 +2,16 @@ package Entity;
 
 import main.GamePanel;
 import main.MOVING;
-import main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.IOException;
 
 public class Player extends Entity{
     MOVING move;
 
     public final int screenX;
     public final int screenY;
+    public int hasKey =0;
     public boolean buffActive = false;
     public int buffTime =0;
     public static final int buffduration= 180;
@@ -45,6 +42,10 @@ public class Player extends Entity{
         worldY = gp.tileSize * 7;
         speed =4;
         direction = "down";
+
+        //player stats
+        maxHealth = 4;
+        life = maxHealth;
     }
 
     public void getPlayerImage(){
@@ -89,6 +90,14 @@ public class Player extends Entity{
             //cjeck npc collision
             int npcindex = gp.cChecker.checkEntity(this,gp.npc);
             interactNPC(npcindex);
+
+            //check monster collision
+            int monsterindex = gp.cChecker.checkEntity(this,gp.monster);
+            contactMonster(monsterindex);
+            //check event
+            gp.eHandler.checkEvent();
+
+            gp.move.enter = false;
 
             //if collision is true player dont move
             if(collisionON ==false)
@@ -135,12 +144,67 @@ public class Player extends Entity{
             }
         }
 
-    }
-    public void Interact(int i){
-        if(i != 999){
-
+        //iframe
+        if(iframe == true){
+            iframecounter++;
+            if(iframecounter > 120)
+            {
+                iframe = false;
+                iframecounter =0;
             }
         }
+    }
+
+    private void contactMonster(int i) {
+        if (i != 999) {
+            if(iframe == false)
+            {
+                life -=1;
+                iframe = true;
+            }
+
+        }
+    }
+
+    //interact with obj
+    public void Interact(int i) {
+        if (i != 999) {
+            String objName = gp.obj[i].name;
+
+            switch (objName) {
+                case "Key":
+                    hasKey++;
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("You got a key!");
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                        gp.ui.showMessage("Door Opened!");
+                    } else {
+                        gp.ui.showMessage("Key Needed!");
+                    }
+                    break;
+                case "Swift":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    if (!buffActive) {
+                        speed += 2;
+                        buffActive = true;
+                        buffTime = 0;
+                    }
+                    gp.obj[i] = null;
+                    gp.ui.showMessage("SPEED UP!");
+                    break;
+                case "Object":
+                    //gp.playSE(); make a special effect sound and add in sound.java
+                    gp.ui.gamefinish = true;
+                    gp.stopMusic();
+                    //gp.playSE();
+                    break;
+            }
+        }
+    }
 
     public void interactNPC(int i){
         if(i != 999){
@@ -150,7 +214,6 @@ public class Player extends Entity{
                 gp.npc[i].speak();
             }
         }
-        gp.move.enter = false;
     }
 
     public void draw(Graphics2D g2){
@@ -192,8 +255,22 @@ public class Player extends Entity{
                 break;
 
         }
+        if(iframe == true)
+        {
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+        }
 
         g2.drawImage(image,screenX,screenY,null);
+
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+
+
+        
+        //debug text
+//        g2.setFont(new Font("Arial",Font.PLAIN,26));
+//        g2.setColor(Color.WHITE);
+//        g2.drawString("iframe:" + iframecounter,10,400);
 //        player size debugg
         g2.setColor(Color.RED);
         g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );

@@ -21,6 +21,8 @@ public class main {
 
     window.setLocationRelativeTo(null);
     window.setVisible(true);
+
+    //rin game
     gamePanel.setupGame();
 
     gamePanel.startGameThread();

@@ -15,10 +15,7 @@ public class Sound {
         soundURL[0] = getClass().getResource("/Sound/song.wav");
         soundURL[1] = getClass().getResource("/Sound/key.wav");
         soundURL[2] = getClass().getResource("/Sound/power-up.wav");
-        soundURL[3] = getClass().getResource("/Sound/power-up.wav");
-        soundURL[4] = getClass().getResource("/Sound/power-up.wav");
-        soundURL[5] = getClass().getResource("/Sound/victory.wav");
-
+        soundURL[3] = getClass().getResource("/Sound/victory.wav");
 
     }
 
@@ -33,8 +30,7 @@ public class Sound {
 
     }
     public void play(){
-        clip.stop();
-//        clip.start();
+        clip.start();
         //stop cause damn annoying
     }
     public void loop(){
