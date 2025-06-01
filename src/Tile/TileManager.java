@@ -132,7 +132,6 @@ public class TileManager {
         }
     }
         public void draw (Graphics2D g2){
-        //why cannot
 
             int worldcol = 0;
             int worldrow = 0;
