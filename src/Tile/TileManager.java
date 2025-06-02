@@ -132,6 +132,8 @@ public class TileManager {
         }
     }
         public void draw (Graphics2D g2){
+            g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR);
+
 
             int worldcol = 0;
             int worldrow = 0;
