@@ -15,8 +15,8 @@ public class Slime extends Entity {
 
         name = "Slime";
         type = 2;
-        speed = 1;
-        maxHealth = 4;
+        speed = 1 ;
+        maxHealth = 2;
         life = maxHealth;
 
         solidarea.x = 3;
@@ -31,16 +31,16 @@ public class Slime extends Entity {
 
     public void getImage(){
 
-        up1 = setup("/Monster/normal");
-        up2 = setup("/Monster/jump");
-        down1 = setup("/Monster/normal");
-        down2 = setup("/Monster/jump");
-        left1 = setup("/Monster/normal");
-        left2 = setup("/Monster/jump");
-        right1 = setup("/Monster/normal");
-        right2 = setup("/Monster/jump");
+        up1 = setup("/Monster/normal",gp.tileSize,gp.tileSize);
+        up2 = setup("/Monster/jump",gp.tileSize,gp.tileSize);
+        down1 = setup("/Monster/normal",gp.tileSize,gp.tileSize);
+        down2 = setup("/Monster/jump",gp.tileSize,gp.tileSize);
+        left1 = setup("/Monster/normal",gp.tileSize,gp.tileSize);
+        left2 = setup("/Monster/jump",gp.tileSize,gp.tileSize);
+        right1 = setup("/Monster/normal",gp.tileSize,gp.tileSize);
+        right2 = setup("/Monster/jump",gp.tileSize,gp.tileSize);
 
-        land1 = setup("/Monster/land");
+        land1 = setup("/Monster/land",gp.tileSize,gp.tileSize);
 
     }
 
@@ -68,6 +68,13 @@ public class Slime extends Entity {
             if (monsterStage > 3) monsterStage = 1;
             spriteCounter = 0;
         }
+        if(iframe == true){
+            iframecounter++;
+            if(iframecounter > 40) {
+                iframe = false;
+                iframecounter =0;
+            }
+        }
     }
 
     @Override
@@ -81,6 +88,7 @@ public class Slime extends Entity {
                 worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.tileSize < gp.player.worldY + gp.player.screenY) {
 
+            //use tenary cause ukwim
             switch (direction) {
                 case "up":
                     image = (monsterStage == 1) ? up1 : (monsterStage == 2 ? up2 : land1);
@@ -96,9 +104,15 @@ public class Slime extends Entity {
                     break;
             }
 
+            if(iframe == true)
+            {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
+
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             g2.setColor(Color.RED);
             g2.drawRect(screenX + solidarea.x, screenY + solidarea.y, solidarea.width, solidarea.height);
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
 

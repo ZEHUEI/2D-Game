@@ -146,7 +146,7 @@ public class UI {
             g2.setColor(Color.WHITE);
             g2.setFont(g2.getFont().deriveFont(42F));
 
-            String text = "Select your class!";
+            String text = "Select your class";
             int x = getXforCenteredText(text);
             int y =gp.tileSize *3;
             g2.drawString(text,x,y);

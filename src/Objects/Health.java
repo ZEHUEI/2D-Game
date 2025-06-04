@@ -11,9 +11,9 @@ public class Health extends Entity {
 
         super(gp);
         name = "HEART";
-        image = setup("/Object/fullheart");
-        image2 = setup("/Object/halfheart");
-        image3 = setup("/Object/noheart");
+        image = setup("/Object/fullheart",gp.tileSize,gp.tileSize);
+        image2 = setup("/Object/halfheart",gp.tileSize,gp.tileSize);
+        image3 = setup("/Object/noheart",gp.tileSize,gp.tileSize);
 
     }
 }

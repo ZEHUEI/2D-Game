@@ -15,17 +15,20 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    public BufferedImage atkup1 , atkup2 , atkdown1 , atkdown2 , atkL1 , atkL2 , atkR1, atkR2;
     public String direction = "down";
 
     public int spriteCounter =0;
     public int spriteNum = 1;
 
     public Rectangle solidarea = new Rectangle(0,0,48,48);
+    public Rectangle atkarea = new Rectangle(0,0,0,0);
     public  int solidAreaDefaultX ,solidAreaDefaultY;
     public boolean collisionON =false;
     public int actionLockCounter = 0;
     public boolean iframe = false;
     public int iframecounter = 0;
+    boolean attacking = false;
     String dialogue[] = new String[20];
     int dialogueIndex =0;
 
@@ -78,7 +81,6 @@ public class Entity {
             }
         }
 
-
         //from player.java
         if(collisionON ==false)
         {
@@ -100,10 +102,10 @@ public class Entity {
         }
 
         spriteCounter++;
-        if(spriteCounter > 10){
-            if(spriteNum ==1) spriteNum =2;
-            else if(spriteNum ==2) spriteNum =1;
-            spriteCounter =0;
+        if(spriteCounter > 10) {
+            if (spriteNum == 1) {spriteNum = 2;}
+            else if (spriteNum == 2) {spriteNum = 1;}
+            spriteCounter = 0;
         }
     }
     public void draw(Graphics2D g2){
@@ -150,7 +152,6 @@ public class Entity {
                         image = right2;
                     }
                     break;
-
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
@@ -158,14 +159,14 @@ public class Entity {
             g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );
         }
     }
-    public BufferedImage setup(String imagePath)
+    public BufferedImage setup(String imagePath,int width,int height)
     {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
 
         try{
             image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-            image= uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image= uTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();
         }

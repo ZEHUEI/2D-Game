@@ -11,7 +11,7 @@ public class door extends Entity {
     public door(GamePanel gp){
         super(gp);
         name ="Door";
-        down1 =setup("/House/door");
+        down1 =setup("/House/door",gp.tileSize,gp.tileSize);
         collision =true;
 
         solidarea.x = 0;

@@ -30,14 +30,14 @@ public class NPC_light extends Entity{
     }
     public void getPlayerImage(){
 
-        up1 = setup("/NPC/NPCup1");
-        up2 = setup("/NPC/NPCup2");
-        down1 = setup("/NPC/NPCdown1");
-        down2 = setup("/NPC/NPCdown2");
-        left1 =setup("/NPC/NPCleft1");
-        left2 =setup("/NPC/NPCleft2");
-        right1 =setup("/NPC/NPCright1");
-        right2 =setup("/NPC/NPCright2");
+        up1 = setup("/NPC/NPCup1",gp.tileSize,gp.tileSize);
+        up2 = setup("/NPC/NPCup2",gp.tileSize,gp.tileSize);
+        down1 = setup("/NPC/NPCdown1",gp.tileSize,gp.tileSize);
+        down2 = setup("/NPC/NPCdown2",gp.tileSize,gp.tileSize);
+        left1 =setup("/NPC/NPCleft1",gp.tileSize,gp.tileSize);
+        left2 =setup("/NPC/NPCleft2",gp.tileSize,gp.tileSize);
+        right1 =setup("/NPC/NPCright1",gp.tileSize,gp.tileSize);
+        right2 =setup("/NPC/NPCright2",gp.tileSize,gp.tileSize);
 
     }
 
