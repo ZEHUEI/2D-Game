@@ -26,9 +26,12 @@ public class Entity {
     public  int solidAreaDefaultX ,solidAreaDefaultY;
     public boolean collisionON =false;
     public int actionLockCounter = 0;
+    public int dyingcounter = 0;
     public boolean iframe = false;
     public int iframecounter = 0;
     boolean attacking = false;
+    public boolean alive = true;
+    public boolean dying = false;
     String dialogue[] = new String[20];
     int dialogueIndex =0;
 
@@ -153,12 +156,69 @@ public class Entity {
                     }
                     break;
             }
+            if(iframe == true)
+            {
+                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+            }
+            if(dying == true)
+            {
+                dyingAnimation(g2);
+            }
+
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             g2.setColor(Color.RED);
             g2.drawRect(screenX + solidarea.x ,screenY + solidarea.y , solidarea.width,solidarea.height );
+            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
     }
+
+    public void dyingAnimation(Graphics2D g2) {
+        dyingcounter++;
+        int i=5;
+        if(dyingcounter <= i)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i && dyingcounter<= i*2)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*2 && dyingcounter<=i*3)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*3 && dyingcounter<=i*4)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*4 && dyingcounter<=i*5)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*5 && dyingcounter<=i*6)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*6 && dyingcounter<=i*7)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*7 && dyingcounter<=i*8)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*8)
+        {
+            dying = false;
+            alive = false;
+        }
+    }
+
+    public void changeAplha(Graphics2D g2, float alphaValue){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
+
     public BufferedImage setup(String imagePath,int width,int height)
     {
         UtilityTool uTool = new UtilityTool();

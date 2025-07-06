@@ -108,6 +108,10 @@ public class Slime extends Entity {
             {
                 g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
             }
+            if(dying == true)
+            {
+                dyingAnimation(g2);
+            }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             g2.setColor(Color.RED);
@@ -116,6 +120,51 @@ public class Slime extends Entity {
         }
     }
 
+    public void dyingAnimation(Graphics2D g2) {
+        dyingcounter++;
+        int i=5;
+        if(dyingcounter <= i)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i && dyingcounter<= i*2)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*2 && dyingcounter<=i*3)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*3 && dyingcounter<=i*4)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*4 && dyingcounter<=i*5)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*5 && dyingcounter<=i*6)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*6 && dyingcounter<=i*7)
+        {
+            changeAplha(g2,0f);
+        }
+        if(dyingcounter > i*7 && dyingcounter<=i*8)
+        {
+            changeAplha(g2,1f);
+        }
+        if(dyingcounter > i*8)
+        {
+            dying = false;
+            alive = false;
+        }
+    }
+
+    public void changeAplha(Graphics2D g2, float alphaValue){
+        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
+    }
 
     public void setAction(){
 

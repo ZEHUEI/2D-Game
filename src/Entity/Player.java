@@ -182,6 +182,7 @@ public class Player extends Entity{
         if (i != 999) {
             if(iframe == false)
             {
+                gp.playSE(4);
                 life -=1;
                 iframe = true;
             }
@@ -192,12 +193,14 @@ public class Player extends Entity{
         if(i !=999){
             if(gp.monster[i].iframe == false)
             {
+                gp.playSE(5);
                 gp.monster[i].life -= 1;
                 gp.monster[i].iframe = true;
 
                 if(gp.monster[i].life <=0)
                 {
-                    gp.monster[i] = null;
+                    gp.playSE(5);
+                    gp.monster[i].dying = true;
                 }
             }
         }
@@ -300,7 +303,8 @@ public class Player extends Entity{
                     gp.npc[i].speak();
                 }
                 else {
-                        attacking = true;
+                    gp.playSE(6);
+                    attacking = true;
                     }
                 }
     }
