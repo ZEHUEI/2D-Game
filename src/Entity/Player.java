@@ -16,6 +16,7 @@ public class Player extends Entity{
     public int buffTime =0;
     public static final int buffduration= 180;
     public int standCounter = 0;
+    public boolean atkCancel = false;
 
     public Player(GamePanel gp, MOVING move){
         super(gp);
@@ -140,6 +141,13 @@ public class Player extends Entity{
                 }
             }
 
+            if(move.enter == true && atkCancel == false){
+                gp.playSE(6);
+                attacking = true;
+                spriteCounter = 0;
+            }
+
+            atkCancel = false;
             gp.move.enter = false;
 
             spriteCounter++;
@@ -196,6 +204,7 @@ public class Player extends Entity{
                 gp.playSE(5);
                 gp.monster[i].life -= 1;
                 gp.monster[i].iframe = true;
+                gp.monster[i].damageReaction();
 
                 if(gp.monster[i].life <=0)
                 {
@@ -298,7 +307,7 @@ public class Player extends Entity{
         if(gp.move.enter == true)
         {
             if(i != 999){
-
+                    atkCancel = true;
                     gp.gameState = gp.dialogueState;
                     gp.npc[i].speak();
                 }

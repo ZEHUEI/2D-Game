@@ -32,6 +32,10 @@ public class Entity {
     boolean attacking = false;
     public boolean alive = true;
     public boolean dying = false;
+    public boolean HPbarOn = false;
+    public int HPbarCounter = 0;
+
+
     String dialogue[] = new String[20];
     int dialogueIndex =0;
 
@@ -43,13 +47,23 @@ public class Entity {
     //Char stats
     public int maxHealth;
     public int life;
+    public int level;
+    public int strength;
+    public int dex;
+    public int def;
+    public int vigor;
+    public int exp;
+    public int nextLvlExp;
+    public int coins;
+    public Entity currentWeapon;
+    public Entity offHand;
 
     public Entity(GamePanel gp){
         this.gp = gp;
     }
-    public void setAction(){
+    public void setAction(){}
 
-    }
+    public void damageReaction(){}
     public void speak(){
         if(dialogue[dialogueIndex] == null){
             dialogueIndex =0;
@@ -156,9 +170,30 @@ public class Entity {
                     }
                     break;
             }
+
+            //monster hp bar
+            if(this.type == 2 && HPbarOn == true){
+                double oneScale = (double)gp.tileSize/maxHealth;
+                double HPbarValue = oneScale*life;
+
+                g2.setColor(new Color(35,35,35));
+                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX,screenY-15,(int)HPbarValue,10);
+
+                HPbarCounter++;
+                if(HPbarCounter > 1200){
+                    HPbarCounter = 0;
+                    HPbarOn = false;
+                }
+            }
+
             if(iframe == true)
             {
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+                HPbarOn = true;
+                HPbarCounter = 0;
+                changeAplha(g2,0.4f);
             }
             if(dying == true)
             {

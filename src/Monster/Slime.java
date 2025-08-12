@@ -77,6 +77,11 @@ public class Slime extends Entity {
         }
     }
 
+    public void damageReaction(){
+        actionLockCounter = 0;
+        direction = gp.player.direction;
+    }
+
     @Override
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
@@ -106,11 +111,30 @@ public class Slime extends Entity {
 
             if(iframe == true)
             {
-                g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
+                HPbarOn = true;
+                HPbarCounter = 0;
+                changeAplha(g2,0.4f);
             }
             if(dying == true)
             {
                 dyingAnimation(g2);
+            }
+
+            if(this.type == 2 && HPbarOn == true){
+                double oneScale = (double)gp.tileSize/maxHealth;
+                double HPbarValue = oneScale*life;
+
+                g2.setColor(new Color(35,35,35));
+                g2.fillRect(screenX-1,screenY-16,gp.tileSize+2,12);
+
+                g2.setColor(new Color(255,0,30));
+                g2.fillRect(screenX,screenY-15,(int)HPbarValue,10);
+
+                HPbarCounter++;
+                if(HPbarCounter > 1200){
+                    HPbarCounter = 0;
+                    HPbarOn = false;
+                }
             }
 
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
@@ -118,52 +142,6 @@ public class Slime extends Entity {
             g2.drawRect(screenX + solidarea.x, screenY + solidarea.y, solidarea.width, solidarea.height);
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
         }
-    }
-
-    public void dyingAnimation(Graphics2D g2) {
-        dyingcounter++;
-        int i=5;
-        if(dyingcounter <= i)
-        {
-            changeAplha(g2,0f);
-        }
-        if(dyingcounter > i && dyingcounter<= i*2)
-        {
-            changeAplha(g2,1f);
-        }
-        if(dyingcounter > i*2 && dyingcounter<=i*3)
-        {
-            changeAplha(g2,0f);
-        }
-        if(dyingcounter > i*3 && dyingcounter<=i*4)
-        {
-            changeAplha(g2,1f);
-        }
-        if(dyingcounter > i*4 && dyingcounter<=i*5)
-        {
-            changeAplha(g2,0f);
-        }
-        if(dyingcounter > i*5 && dyingcounter<=i*6)
-        {
-            changeAplha(g2,1f);
-        }
-        if(dyingcounter > i*6 && dyingcounter<=i*7)
-        {
-            changeAplha(g2,0f);
-        }
-        if(dyingcounter > i*7 && dyingcounter<=i*8)
-        {
-            changeAplha(g2,1f);
-        }
-        if(dyingcounter > i*8)
-        {
-            dying = false;
-            alive = false;
-        }
-    }
-
-    public void changeAplha(Graphics2D g2, float alphaValue){
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alphaValue));
     }
 
     public void setAction(){

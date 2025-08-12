@@ -93,6 +93,7 @@ public class EventHandler {
     public void healingPit(int col,int row,int gameState) {
         if (gp.move.enter == true) {
             gp.gameState = gameState;
+            gp.player.atkCancel = true;
             gp.ui.currentDialogue = "YOU HEALED";
             gp.player.life = gp.player.maxHealth;
         }
