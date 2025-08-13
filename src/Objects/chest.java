@@ -12,7 +12,7 @@ public class chest extends Entity {
         super(gp);
 
         name = "Chest";
-        down1 = setup("/Object/demo-chest");
+        down1 = setup("/Object/demo-chest",gp.tileSize,gp.tileSize);
         collision = true;
     }
 }
