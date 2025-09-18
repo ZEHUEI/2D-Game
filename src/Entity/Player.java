@@ -1,5 +1,7 @@
 package Entity;
 
+import Objects.shield;
+import Objects.sword;
 import main.GamePanel;
 import main.MOVING;
 
@@ -50,8 +52,25 @@ public class Player extends Entity{
         direction = "down";
 
         //player stats
+        level =1;
         maxHealth = 4;
         life = maxHealth;
+        strength=1;
+        dex=1;
+        exp=0;
+        nextLvlExp =5;
+        coins=0;
+        currentWeapon = new sword(gp);
+        offHand = new shield(gp);
+        ATK = getAttack();
+        def = getDefense();
+    }
+    public int getAttack(){
+        return ATK = strength + currentWeapon.attackValue;
+    }
+
+    public int getDefense(){
+        return def = dex + currentWeapon.defenseValue;
     }
 
     public void getPlayerImage(){

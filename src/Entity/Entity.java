@@ -51,12 +51,16 @@ public class Entity {
     public int strength;
     public int dex;
     public int def;
-    public int vigor;
     public int exp;
     public int nextLvlExp;
     public int coins;
+    public int ATK;
     public Entity currentWeapon;
     public Entity offHand;
+
+    //item attributes
+    public int attackValue;
+    public int defenseValue;
 
     public Entity(GamePanel gp){
         this.gp = gp;
