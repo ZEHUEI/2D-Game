@@ -1,2 +1,2 @@
-# 2D-Game - JAVA swing - In-Developetment 
+# 2D-Game - JAVA swing - In-Development
 Video-game created in IntelliJ
