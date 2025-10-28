@@ -149,7 +149,6 @@ public class MOVING implements KeyListener {
 
             else if (gp.gameState == gp.pauseState) {
                 gp.gameState = gp.playState;
-                gp.music.play();
             }
 
         }
@@ -177,7 +176,11 @@ public class MOVING implements KeyListener {
     public void characterState(int code){
         if(code == KeyEvent.VK_C)
         {
-            gp.gameState=gp.playState;
+            gp.gameState=gp.characterState;
+            gp.music.stop();
+        }
+        else if(gp.gameState==gp.characterState){
+            gp.gameState =gp.playState;
         }
     }
 

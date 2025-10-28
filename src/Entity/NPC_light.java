@@ -42,11 +42,31 @@ public class NPC_light extends Entity{
     }
 
     public void setDialogue(){
-        dialogue[0]= "Hello my drilla";
-        dialogue[1]= "Welcome to the new world";
-        dialogue[2]= "I will be ur voice";
-        dialogue[3]= "Goodlick";
+        dialogue[0]= wrapText("你好，안녕하세요,こんにちは . . . 看来你不理解我  . . . 不理解我 . . . 不理解我 不理解我不 ... 不理 .. . . .不理解我",40);
+        dialogue[1]= wrapText("Welcome fellow Hollowed One!",40);
+        dialogue[2]= wrapText("I will be your voice throughout the NEW WORLD",35);
+        dialogue[3]= wrapText("Let’s touch grass — fantasy grass.",40);
+        dialogue[4]= wrapText(" . . . heh",40);
+        dialogue[5]= wrapText("May our journey blaze legends",40);
+
     }
+
+    //dialogue helper as text goes out if too long
+    public String wrapText(String text, int maxLineLength){
+        StringBuilder wrapped = new StringBuilder();
+        int linelength =0;
+
+        for(String word:text.split(" ")){
+            if(linelength + word.length() > maxLineLength){
+                wrapped.append("\n");
+                linelength=0;
+            }
+            wrapped.append(word).append(" ");
+            linelength += word.length()+1;
+        }
+        return wrapped.toString().trim();
+    }
+
     public void setAction(){
 
         actionLockCounter++;
