@@ -53,12 +53,13 @@ public class Player extends Entity{
 
         //player stats
         level =1;
-        maxHealth = 4;
+        maxHealth = 6;
         life = maxHealth;
         strength=1;
+        //dex is for defense need t =o change this
         dex=1;
         exp=0;
-        nextLvlExp =5;
+        nextLvlExp =1;
         coins=0;
         currentWeapon = new sword(gp);
         offHand = new shield(gp);
@@ -210,7 +211,12 @@ public class Player extends Entity{
             if(iframe == false)
             {
                 gp.playSE(4);
-                life -=1;
+
+                int damage = gp.monster[i].ATK - def;
+                if(damage < 0){
+                    damage =0;
+                }
+                life -=damage;
                 iframe = true;
             }
 
@@ -221,7 +227,13 @@ public class Player extends Entity{
             if(gp.monster[i].iframe == false)
             {
                 gp.playSE(5);
-                gp.monster[i].life -= 1;
+
+                int damage = ATK - gp.monster[i].def;
+                if(damage < 0){
+                    damage =0;
+                }
+                gp.monster[i].life -= damage;
+                gp.ui.addMessage(damage + " damage");
                 gp.monster[i].iframe = true;
                 gp.monster[i].damageReaction();
 
@@ -229,6 +241,10 @@ public class Player extends Entity{
                 {
                     gp.playSE(5);
                     gp.monster[i].dying = true;
+                    gp.ui.addMessage("killed the "+gp.monster[i].name);
+                    gp.ui.addMessage(gp.monster[i].exp + " EXP GAINED");
+                    exp +=gp.monster[i].exp;
+                    checkLevelUp();
                 }
             }
         }
@@ -291,15 +307,15 @@ public class Player extends Entity{
                 case "Key":
                     hasKey++;
                     gp.obj[i] = null;
-                    gp.ui.showMessage("You got a key!");
+                    gp.ui.addMessage("You got a key!");
                     break;
                 case "Door":
                     if (hasKey > 0) {
                         gp.obj[i] = null;
                         hasKey--;
-                        gp.ui.showMessage("Door Opened!");
+                        gp.ui.addMessage("Door Opened!");
                     } else {
-                        gp.ui.showMessage("Key Needed!");
+                        gp.ui.addMessage("Key Needed!");
                     }
                     break;
                 case "Swift":
@@ -310,7 +326,7 @@ public class Player extends Entity{
                         buffTime = 0;
                     }
                     gp.obj[i] = null;
-                    gp.ui.showMessage("SPEED UP!");
+                    gp.ui.addMessage("SPEED UP!");
                     break;
                 case "Object":
                     //gp.playSE(); make a special effect sound and add in sound.java
@@ -335,6 +351,22 @@ public class Player extends Entity{
                     attacking = true;
                     }
                 }
+    }
+
+    public void checkLevelUp(){
+        if(exp >= nextLvlExp){
+            exp -=nextLvlExp;
+            level++;
+            nextLvlExp *= 2;
+            maxHealth++;
+            strength++;
+            dex++;
+            ATK = getAttack();
+            def = getDefense();
+//            gp.playSE(7);
+            gp.gameState = gp.dialogueState;
+            gp.ui.currentDialogue = "You are level "+ level+ " now\n" + "Stats rises";
+        }
     }
 
     public void draw(Graphics2D g2){

@@ -98,6 +98,13 @@ public class Entity {
             if(gp.player.iframe == false)
             {
                 gp.player.life -=1;
+
+                int damage = ATK - gp.player.def;
+                if(damage < 0){
+                    damage =0;
+                }
+                gp.player.life -=damage;
+
                 gp.player.iframe = true;
             }
         }

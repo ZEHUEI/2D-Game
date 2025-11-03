@@ -16,8 +16,11 @@ public class Slime extends Entity {
         name = "Slime";
         type = 2;
         speed = 1 ;
-        maxHealth = 2;
+        maxHealth = 4;
         life = maxHealth;
+        ATK=3;
+        def =0;
+        exp=2;
 
         solidarea.x = 3;
         solidarea.y = 12;

@@ -29,17 +29,30 @@ public class AssetSetter {
 
     }
     public void setMonster(){
-        gp.monster[0] = new Slime(gp);
-        gp.monster[0].worldX = gp.tileSize*20;
-        gp.monster[0].worldY = gp.tileSize*20;
-
-        gp.monster[1] = new Slime(gp);
-        gp.monster[1].worldX = gp.tileSize*19;
-        gp.monster[1].worldY = gp.tileSize*20;
-
-        gp.monster[2] = new Slime(gp);
-        gp.monster[2].worldX = gp.tileSize*18;
-        gp.monster[2].worldY = gp.tileSize*20;
+        int i=0;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*20;
+        gp.monster[i].worldY = gp.tileSize*20;
+        i++;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*19;
+        gp.monster[i].worldY = gp.tileSize*20;
+        i++;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*18;
+        gp.monster[i].worldY = gp.tileSize*20;
+        i++;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*17;
+        gp.monster[i].worldY = gp.tileSize*20;
+        i++;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*16;
+        gp.monster[i].worldY = gp.tileSize*20;
+        i++;
+        gp.monster[i] = new Slime(gp);
+        gp.monster[i].worldX = gp.tileSize*15;
+        gp.monster[i].worldY = gp.tileSize*20;
 
     }
 }

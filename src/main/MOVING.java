@@ -41,6 +41,8 @@ public class MOVING implements KeyListener {
         //characteer state
         else if(gp.gameState == gp.characterState) {
             characterState(code);
+            //debug
+            System.out.println(gp.player.exp);
         }
     }
 
@@ -173,14 +175,14 @@ public class MOVING implements KeyListener {
         }
     }
 
-    public void characterState(int code){
-        if(code == KeyEvent.VK_C)
-        {
-            gp.gameState=gp.characterState;
-            gp.music.stop();
-        }
-        else if(gp.gameState==gp.characterState){
-            gp.gameState =gp.playState;
+    public void characterState(int code) {
+        if (code == KeyEvent.VK_C) {
+            if (gp.gameState == gp.playState) {
+                gp.gameState = gp.characterState;
+                gp.music.stop();
+            } else if (gp.gameState == gp.characterState) {
+                gp.gameState = gp.playState;
+            }
         }
     }
 
