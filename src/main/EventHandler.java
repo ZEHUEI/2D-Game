@@ -94,7 +94,7 @@ public class EventHandler {
         if (gp.move.enter == true) {
             gp.gameState = gameState;
             gp.player.atkCancel = true;
-//            gp.playSE(7);
+            gp.playSE(7);
             gp.ui.currentDialogue = "YOU HEALED";
             gp.player.life = gp.player.maxHealth;
             gp.asset.setMonster();

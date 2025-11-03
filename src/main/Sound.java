@@ -19,10 +19,8 @@ public class Sound {
         soundURL[4] = getClass().getResource("/Sound/damagedP.wav");
         soundURL[5] = getClass().getResource("/Sound/dmgSlime.wav");
         soundURL[6] = getClass().getResource("/Sound/xingxing.wav");
-        //heal sound
-//        soundURL[7] = getClass().getResource("/Sound/healed.wav");
-        //lvl up sound here
-//        soundURL[8] = getClass().getResource("/Sound/lvlup.wav");
+        soundURL[7] = getClass().getResource("/Sound/healed.wav");
+        soundURL[8] = getClass().getResource("/Sound/lvlup.wav");
 
     }
 

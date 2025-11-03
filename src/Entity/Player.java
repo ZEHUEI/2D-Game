@@ -363,7 +363,7 @@ public class Player extends Entity{
             dex++;
             ATK = getAttack();
             def = getDefense();
-//            gp.playSE(7);
+            gp.playSE(7);
             gp.gameState = gp.dialogueState;
             gp.ui.currentDialogue = "You are level "+ level+ " now\n" + "Stats rises";
         }
